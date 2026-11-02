@@ -30,14 +30,14 @@ export default async (request) => {
     const win = Math.random() < 0.15;
 
     // 同じ番号の登録を一度だけ許可
-    const saved = await store.set(key, JSON.stringify({
+    const { modified } = await store.set(key, JSON.stringify({
       win,
       usedAt: new Date().toISOString()
     }), {
       onlyIfNew: true
     });
 
-    if (!saved) {
+    if (!modified) {
       return new Response(
         JSON.stringify({ error: "この番号はすでに抽選済みです！" }),
         { status: 409, headers }
