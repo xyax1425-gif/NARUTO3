@@ -13,38 +13,46 @@ export default async (request) => {
     );
   }
 
+  let body;
+
   try {
-    const body = await request.json();
-    const number = String(body.number || "").trim();
+    body = await request.json();
+  } catch {
+    return new Response(
+      JSON.stringify({ error: "入力を確認してください" }),
+      { status: 400, headers }
+    );
+  }
 
-    if (!/^\d{1,20}$/.test(number)) {
+  const number = String(body.number ?? "").trim();
+
+  if (!/^[0-9]{1,30}$/.test(number)) {
+    return new Response(
+      JSON.stringify({ error: "番号を確認してください" }),
+      { status: 400, headers }
+    );
+  }
+
+  try {
+    const store = getStore("naruto-used-ticket-numbers");
+
+    const win = Math.random() < 0.15;
+
+    const { modified } = await store.set(
+      number,
+      JSON.stringify({
+        win,
+        usedAt: new Date().toISOString()
+      }),
+      { onlyIfNew: true }
+    );
+
+    if (!modified) {
       return new Response(
-        JSON.stringify({ error: "抽選番号が正しくありません" }),
-        { status: 400, headers }
-      );
-    }
-
-    const store = getStore("naruto-draw");
-    const key = `ticket-${number}`;
-
-    // 同じ番号が使用済みか確認
-    const used = await store.get(key);
-
-    if (used) {
-      return new Response(
-        JSON.stringify({ error: "この番号はすでに抽選済みです！" }),
+        JSON.stringify({ error: "この番号は使用済みです" }),
         { status: 409, headers }
       );
     }
-
-    // 15％の確率で当たり
-    const win = Math.random() < 0.15;
-
-    // 抽選結果を保存
-    await store.set(key, JSON.stringify({
-      win,
-      usedAt: new Date().toISOString()
-    }));
 
     return new Response(
       JSON.stringify({ win }),
@@ -53,7 +61,9 @@ export default async (request) => {
 
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: "抽選に失敗しました。もう一度お試しください。" }),
+      JSON.stringify({
+        error: "抽選に失敗しました。もう一度お試しください。"
+      }),
       { status: 500, headers }
     );
   }
