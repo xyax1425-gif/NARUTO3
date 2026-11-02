@@ -26,26 +26,32 @@ export default async (request) => {
     const store = getStore("naruto-draw");
     const key = `ticket-${number}`;
 
-    // 15％の確率で当たり
-    const win = Math.random() < 0.15;
+    // すでに抽選済みなら、保存されている同じ結果を返す
+    // 新しい番号なら一度だけ結果を保存する
+    const existing = await store.get(key, { type: "json", consistency: "strong" });
+    if (existing && typeof existing.win === "boolean") {
+      return new Response(
+        JSON.stringify({ win: existing.win }),
+        { status: 200, headers }
+      );
+    }
 
-    // 同じ番号の登録を一度だけ許可
-    const { modified } = await store.set(key, JSON.stringify({
+    const win = Math.random() < 0.15;
+    await store.set(key, JSON.stringify({
       win,
       usedAt: new Date().toISOString()
     }), {
       onlyIfNew: true
     });
 
-    if (!modified) {
-      return new Response(
-        JSON.stringify({ error: "この番号はすでに抽選済みです！" }),
-        { status: 409, headers }
-      );
+    // set() の戻り値に依存せず、保存された確定結果を読み直す
+    const savedResult = await store.get(key, { type: "json", consistency: "strong" });
+    if (!savedResult || typeof savedResult.win !== "boolean") {
+      throw new Error("抽選結果を保存できませんでした");
     }
 
     return new Response(
-      JSON.stringify({ win }),
+      JSON.stringify({ win: savedResult.win }),
       { status: 200, headers }
     );
 
