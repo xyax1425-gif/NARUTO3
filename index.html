@@ -79,7 +79,7 @@
 
     button.addEventListener("click", async () => {
       const number = ticketNumber.value.trim();
-      if (!/^\\d{1,20}$/.test(number)) {
+      if (!/^\d{1,20}$/.test(number)) {
         alert("抽選番号を1〜20桁の数字で入力してください！");
         ticketNumber.focus();
         return;
