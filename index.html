@@ -1,60 +1,65 @@
+<script>
+const button = document.getElementById("draw");
+const result = document.getElementById("result");
+const title = document.getElementById("resultTitle");
+const text = document.getElementById("resultText");
+const ticketNumber = document.getElementById("ticketNumber");
+const burst = document.getElementById("burst");
 
-import { getStore } from "@netlify/blobs";
+button.addEventListener("click", async () => {
+  const number = ticketNumber.value.trim();
 
-export default async (request) => {
-  const headers = {
-    "Content-Type": "application/json"
-  };
-
-  if (request.method !== "POST") {
-    return new Response(
-      JSON.stringify({ error: "不正なアクセスです" }),
-      { status: 405, headers }
-    );
+  if (!number) {
+    alert("抽選番号を入力してください！");
+    ticketNumber.focus();
+    return;
   }
+
+  if (!/^\d{1,20}$/.test(number)) {
+    alert("番号は1〜20桁の数字で入力してください！");
+    return;
+  }
+
+  button.disabled = true;
+  ticketNumber.disabled = true;
+  button.textContent = "抽選中…";
+  burst.classList.add("on");
 
   try {
-    const body = await request.json();
-    const number = String(body.number || "").trim();
+    const response = await fetch("/.netlify/functions/draw", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ number })
+    });
 
-    if (!/^\d{1,20}$/.test(number)) {
-      return new Response(
-        JSON.stringify({ error: "抽選番号が正しくありません" }),
-        { status: 400, headers }
-      );
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "抽選できませんでした");
     }
 
-    const store = getStore("naruto-draw");
-    const key = `ticket-${number}`;
+    title.textContent = data.win
+      ? "大当たり！景品GET！"
+      : "今回ははずれ…";
 
-    // 同じ番号が使用済みか確認
-    const used = await store.get(key);
+    text.textContent = data.win
+      ? "おめでとうございます！景品をお受け取りください！"
+      : "参加ありがとう！またの挑戦をお待ちしています。";
 
-    if (used) {
-      return new Response(
-        JSON.stringify({ error: "この番号はすでに抽選済みです！" }),
-        { status: 409, headers }
-      );
-    }
-
-    // 15％の確率で当たり
-    const win = Math.random() < 0.15;
-
-    // 抽選結果を保存
-    await store.set(key, JSON.stringify({
-      win,
-      usedAt: new Date().toISOString()
-    }));
-
-    return new Response(
-      JSON.stringify({ win }),
-      { status: 200, headers }
-    );
+    result.classList.add("show");
+    button.textContent = "抽選終了";
 
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: "抽選に失敗しました。もう一度お試しください。" }),
-      { status: 500, headers }
-    );
+    alert(error.message);
+
+    button.disabled = false;
+    ticketNumber.disabled = false;
+    button.textContent = "運命の抽選をする！";
+
+  } finally {
+    burst.classList.remove("on");
   }
-};
+});
+</script>
