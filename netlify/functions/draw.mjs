@@ -50,8 +50,9 @@ export default async (request) => {
     );
 
   } catch (error) {
+    console.error("draw function error:", error);
     return new Response(
-      JSON.stringify({ error: "抽選に失敗しました。もう一度お試しください。" }),
+      JSON.stringify({ error: "抽選エラー: " + (error?.message || String(error)) }),
       { status: 500, headers }
     );
   }
