@@ -47,17 +47,106 @@
     @keyframes pop { from { opacity:0;transform:scale(.94); } to { opacity:1;transform:scale(1); } }
     @keyframes flash { from { opacity:.35;transform:scale(.9); } to { opacity:1;transform:scale(1.08); } }
     footer { margin-top:18px;text-align:center;color:#9d8975;font-size:10px;letter-spacing:.1em; }
+
+    /* 木ノ葉の里をイメージした忍者風デザイン */
+    body {
+      background:
+        radial-gradient(ellipse at 50% 8%,#f28a2440,transparent 38%),
+        radial-gradient(circle at 8% 78%,#b52b1d22,transparent 25%),
+        linear-gradient(145deg,#263342 0%,#111923 48%,#090b10 100%);
+    }
+    .card {
+      border:2px solid #b8b5a9;
+      border-radius:8px;
+      background:
+        linear-gradient(135deg,#26313aee,#101820f5 62%),
+        repeating-linear-gradient(45deg,transparent 0 12px,#ffffff08 12px 13px);
+      box-shadow:0 0 0 5px #171d25,0 0 0 7px #a94c25,0 22px 70px #000c,inset 0 0 45px #f28a241c;
+    }
+    .card:before,.card:after {
+      width:110px;height:110px;border:3px solid #d65d2a55;
+      border-radius:50%;transform:none;
+    }
+    .card:before { top:-75px;left:-65px; }
+    .card:after { bottom:-75px;right:-65px; }
+    .headband {
+      width:min(100%,300px);height:58px;margin:0 auto 18px;padding:7px 20px;
+      display:flex;align-items:center;justify-content:center;
+      border:2px solid #7b8188;border-radius:7px;
+      background:linear-gradient(180deg,#343b43,#151a20 48%,#343b43);
+      box-shadow:0 5px 0 #090d12,0 9px 18px #0008;
+      transform:rotate(-2deg);
+    }
+    .plate {
+      width:100px;height:42px;display:grid;place-items:center;
+      border:2px solid #aeb2b4;border-radius:12px;
+      background:linear-gradient(135deg,#d5d1c4,#777b7b 48%,#c9c5b8);
+      box-shadow:inset 0 0 0 2px #555b60,0 2px 5px #0008;
+    }
+    .plate svg { width:34px;height:34px;fill:none;stroke:#242a30;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round; }
+    .mark { display:none; }
+    .eyebrow { color:#ffb14b;text-shadow:0 0 12px #f28a2488; }
+    h1 { color:#fff3dc;text-shadow:3px 3px 0 #a63e1a,0 0 18px #f28a2466; }
+    .sub { color:#d6dbe0; }
+    .ribbon {
+      border:1px solid #ffc66d;
+      background:linear-gradient(90deg,#8d281b,#e85b20,#8d281b);
+      box-shadow:0 4px 15px #e85b2044;
+    }
+    .instructions { color:#ffe0ae; }
+    input {
+      border:2px solid #8e9aa3;border-radius:5px;
+      background:linear-gradient(180deg,#0b1118,#17222c);
+      box-shadow:inset 0 3px 10px #0009;
+    }
+    input:focus { border-color:#ffad45;box-shadow:0 0 0 3px #ffad4530,0 0 20px #ffad4540; }
+    button {
+      border:1px solid #ffd17a;border-radius:5px;
+      background:linear-gradient(180deg,#ffbd59,#ef741e 55%,#b83e18);
+      color:#20130c;text-shadow:0 1px #ffe3a1;
+      box-shadow:0 5px 0 #772a17,0 10px 25px #e66d1640;
+    }
+    #result {
+      border:2px solid #e5a74c;border-radius:6px;
+      background:linear-gradient(145deg,#202a32,#0b1016);
+      box-shadow:inset 0 0 25px #f28a2422,0 0 18px #f28a2422;
+    }
+    #resultTitle { text-shadow:0 0 15px #ffd36a77; }
+    .note { color:#b9c1c8; }
+    .scroll-label {
+      display:flex;align-items:center;justify-content:center;gap:9px;
+      margin:0 auto 17px;color:#e7c28d;font-size:11px;font-weight:800;letter-spacing:.18em;
+    }
+    .scroll-label:before,.scroll-label:after {
+      content:"";width:32px;height:5px;border-top:1px solid #c58b4b;border-bottom:1px solid #c58b4b;
+    }
+    .village-tag {
+      position:absolute;top:14px;right:14px;padding:4px 7px;
+      border:1px solid #d16b3d88;color:#e9a16b;font-size:9px;letter-spacing:.12em;
+      transform:rotate(4deg);
+    }
+    .burst { color:#ffcf6a;text-shadow:0 0 16px #ff8b25; }
+    @media (max-width:380px) {
+      .card { padding:26px 16px; }
+      .headband { width:245px; }
+    }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card">
-      <div class="mark" aria-hidden="true">忍</div>
-      <p class="eyebrow">HIDDEN LEAF VILLAGE</p>
+      <div class="village-tag">木ノ葉隠れの里</div>
+      <div class="headband" aria-label="忍者の額当て">
+        <div class="plate">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 23c6-10 17-13 26-6-4 0-7 2-9 5 5 0 8 3 8 7-5-3-10-3-14 0-4 2-8 1-11-2 4 0 6-2 7-4-3 1-5 1-7 0z"/><path d="M16 18c2 2 2 5 0 7"/></svg>
+        </div>
+      </div>
+      <p class="eyebrow">KONOHAGAKURE · 火の意志</p>
       <h1>NARUTO<br>DOUBLE UP CHANCE</h1>
       <p class="sub">一番くじ ダブルアップキャンペーン</p>
-      <div class="ribbon">運命の追加抽選</div>
-      <p class="instructions">くじ券に記載された番号を入力！</p>
+      <div class="scroll-label">忍の運命を切り開け</div>
+      <div class="ribbon">火影への追加任務</div>
+      <p class="instructions">巻物に記された番号を入力せよ！</p>
       <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="抽選番号を入力" aria-label="抽選番号">
       <button id="draw" type="button">運命の抽選をする！</button>
       <div class="burst" id="burst" aria-hidden="true">★　★　★</div>
@@ -65,7 +154,7 @@
         <h2 id="resultTitle"></h2>
         <p id="resultText"></p>
       </section>
-      <p class="note">※番号は1〜20桁の数字で入力してください。<br>※同じ番号での抽選は1回限りです。</p>
+      <p class="note">※任務番号は1〜20桁の数字で入力してください。<br>※同じ番号での抽選は一度限り。健闘を祈る！</p>
     </section>
     <footer>© DOUBLE UP CHANCE</footer>
   </main>
