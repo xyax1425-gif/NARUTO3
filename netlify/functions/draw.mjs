@@ -1,4 +1,3 @@
-
 import { getStore } from "@netlify/blobs";
 
 export default async (request) => {
@@ -27,24 +26,23 @@ export default async (request) => {
     const store = getStore("naruto-draw");
     const key = `ticket-${number}`;
 
-    // 同じ番号が使用済みか確認
-    const used = await store.get(key);
+    // 15％の確率で当たり
+    const win = Math.random() < 0.15;
 
-    if (used) {
+    // 同じ番号の登録を一度だけ許可
+    const saved = await store.set(key, JSON.stringify({
+      win,
+      usedAt: new Date().toISOString()
+    }), {
+      onlyIfNew: true
+    });
+
+    if (!saved) {
       return new Response(
         JSON.stringify({ error: "この番号はすでに抽選済みです！" }),
         { status: 409, headers }
       );
     }
-
-    // 15％の確率で当たり
-    const win = Math.random() < 0.15;
-
-    // 抽選結果を保存
-    await store.set(key, JSON.stringify({
-      win,
-      usedAt: new Date().toISOString()
-    }));
 
     return new Response(
       JSON.stringify({ win }),
