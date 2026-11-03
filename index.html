@@ -289,7 +289,7 @@
       <div class="ribbon">火影への追加任務</div>
       <p class="instructions">巻物に記された番号を入力せよ！</p>
       <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="抽選番号を入力" aria-label="抽選番号">
-      <button id="draw" type="button">運命の抽選をする！</button>
+      <button id="draw" type="button">運命をつかめ！</button>
       <div class="burst" id="burst" aria-hidden="true">★　★　★</div>
       <section id="result" aria-live="polite">
         <h2 id="resultTitle"></h2>
@@ -336,7 +336,7 @@
         alert(error.message);
         button.disabled = false;
         ticketNumber.disabled = false;
-        button.textContent = "運命の抽選をする！";
+        button.textContent = "運命をつかめ！";
       } finally {
         burst.classList.remove("on");
       }
