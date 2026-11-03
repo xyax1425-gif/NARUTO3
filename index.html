@@ -571,11 +571,12 @@
       }
       input::placeholder { color:#aaa8aa; }
       button {
-        display:block;width:100%;height:100px;min-height:100px;margin:24px auto 0;padding:0 12px;
+        display:flex;width:100%;box-sizing:border-box;height:100px;min-height:100px;margin:24px auto 0;padding:0 10px;
+        align-items:center;justify-content:center;
         border:0;border-radius:999px;
         background:linear-gradient(100deg,#ffd52e 0%,#ffbd25 45%,#f36b18 100%);
-        color:#211322;font-family:inherit;font-size:clamp(22px,5vw,30px);
-        font-weight:950;letter-spacing:0;white-space:nowrap;
+        color:#211322;font-family:inherit;font-size:clamp(17px,4.6vw,21px);
+        font-weight:950;letter-spacing:-.03em;white-space:nowrap;word-break:keep-all;
         text-shadow:0 1px 0 #fff5;
         box-shadow:0 9px 0 #8d3d16,0 15px 34px #ff7b2866;
         animation:buttonGlow 1.8s ease-in-out infinite alternate;
