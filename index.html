@@ -276,21 +276,94 @@
       button { animation:none; }
     }
 
+
+    /* 参考画像に合わせた、炎のチャクラをイメージしたシンプルな画面 */
+    body {
+      min-height:100vh; padding:28px 16px;
+      background:
+        radial-gradient(ellipse at 50% 38%,#8b3d16 0%,#4a2418 34%,transparent 67%),
+        linear-gradient(145deg,#171522 0%,#0c0b14 100%);
+      color:#fff;
+    }
+    .wrap { width:min(100%,630px); }
+    .card {
+      padding:48px 38px 40px;
+      border:2px solid #e6c65f;
+      border-radius:42px;
+      background:linear-gradient(155deg,#211d35 0%,#100f1e 68%,#090914 100%);
+      box-shadow:0 0 0 1px #8b6c32,0 0 55px #ed792b44,0 22px 70px #000b;
+      text-align:center;
+    }
+    .eyebrow {
+      margin:0 0 24px;color:#ffd64f;
+      font-size:16px;font-weight:900;letter-spacing:.22em;
+    }
+    h1 {
+      margin:0;color:#fff;font-size:clamp(30px,7vw,43px);
+      line-height:1.35;letter-spacing:.02em;text-shadow:0 2px 12px #0008;
+    }
+    .sub { margin:18px 0 34px;color:#d4d0df;font-size:clamp(15px,3.8vw,20px); }
+    .trial-orb {
+      width:clamp(190px,40vw,270px);height:clamp(190px,40vw,270px);
+      margin:0 auto 30px;display:grid;place-items:center;border-radius:50%;
+      border:4px solid #8e8a9a;
+      background:radial-gradient(circle at 50% 43%,#ffcf25 0%,#ff8a12 35%,#a6380b 63%,#211322 78%);
+      color:#fff;font-size:clamp(24px,5vw,34px);font-weight:900;
+      text-shadow:0 2px 5px #632000;
+      box-shadow:0 0 0 5px #ffb52b22,0 0 26px #ff9b25,0 0 62px #ff8b1c99,inset 0 0 25px #ffdd4d99;
+    }
+    .chance { margin:0 0 34px;color:#ddd5df;font-size:17px; }
+    .instructions { margin:0 0 12px;text-align:left;color:#f5edf2;font-size:17px;font-weight:800; }
+    input {
+      width:100%;height:94px;padding:0 18px;border:3px solid #f0d45c;
+      border-radius:20px;background:#fff;color:#201b24;
+      box-shadow:0 0 0 1px #fff5;font-size:clamp(24px,5vw,32px);
+      letter-spacing:.08em;text-align:center;
+    }
+    input::placeholder { color:#aaa8aa; }
+    input:focus { border-color:#ffe77c;box-shadow:0 0 0 4px #ffd34b33,0 0 22px #ffae2c66; }
+    button {
+      display:block;width:100%;min-height:96px;margin:24px auto 0;padding:18px;
+      border:0;border-radius:999px;
+      background:linear-gradient(100deg,#ffd52e 0%,#ffad24 48%,#f36b18 100%);
+      color:#241322;font-family:inherit;font-size:clamp(22px,5vw,30px);
+      font-weight:950;letter-spacing:.02em;white-space:nowrap;
+      text-shadow:0 1px 0 #fff5;
+      box-shadow:0 9px 0 #8d3d16,0 15px 34px #ff7b2866;
+      animation:buttonGlow 1.8s ease-in-out infinite alternate;
+    }
+    button:active:not(:disabled) { transform:translateY(5px);box-shadow:0 4px 0 #8d3d16,0 8px 20px #ff7b2844; }
+    button:disabled { opacity:.7;animation:none; }
+    @keyframes buttonGlow {
+      from { filter:brightness(1);box-shadow:0 9px 0 #8d3d16,0 0 18px #ff9b2c88,0 15px 34px #ff7b2844; }
+      to { filter:brightness(1.14);box-shadow:0 9px 0 #8d3d16,0 0 30px #ffd45aaa,0 15px 42px #ff7b2877; }
+    }
+    .note { margin-top:34px;color:#bdb7c8;font-size:14px;line-height:1.9; }
+    #result { border:1px solid #e6c65f;border-radius:18px;background:#100f1e; }
+    #resultTitle { color:#ffd65a; }
+    footer { display:none; }
+    @media (max-width:480px) {
+      body { padding:22px 12px; }
+      .card { padding:42px 22px 34px;border-radius:34px; }
+      .eyebrow { font-size:13px;margin-bottom:22px; }
+      .sub { margin:16px 0 30px; }
+      .chance { font-size:14px;margin-bottom:30px; }
+      input { height:78px;border-radius:17px; }
+      button { min-height:82px;font-size:clamp(19px,5vw,25px); }
+      .note { font-size:12px;margin-top:30px; }
+    }
+    @media (prefers-reduced-motion:reduce) { button { animation:none; } }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card">
-      <div class="village-tag">木ノ葉隠れの里</div>
-      <div class="headband" aria-label="忍者の額当て">
-        <div class="plate">
-          <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 23c6-10 17-13 26-6-4 0-7 2-9 5 5 0 8 3 8 7-5-3-10-3-14 0-4 2-8 1-11-2 4 0 6-2 7-4-3 1-5 1-7 0z"/><path d="M16 18c2 2 2 5 0 7"/></svg>
-        </div>
-      </div>
-      <p class="eyebrow">KONOHAGAKURE · 火の意志</p>
-      <div class="scroll-label">忍の運命を切り開け</div>
-      <div class="ribbon">火影への追加任務</div>
-      <p class="instructions">巻物に記された番号を入力せよ！</p>
+      <p class="eyebrow">NINJA DOUBLE CHANCE</p>
+      <h1>忍の運命をつかめ！</h1>
+      <p class="sub">くじ券の番号を入力して、チャクラを解放！</p>
+      <div class="trial-orb" aria-hidden="true">火影の試練</div>
+      <p class="chance">当選確率 15% ／ チャンスは1回だけ！</p>
+      <p class="instructions">くじ券の番号</p>
       <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="抽選番号を入力" aria-label="抽選番号">
       <button id="draw" type="button">運命をつかめ！</button>
       <div class="burst" id="burst" aria-hidden="true">★　★　★</div>
