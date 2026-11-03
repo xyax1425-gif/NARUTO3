@@ -223,6 +223,24 @@
       button { width:100%;font-size:16px; }
     }
 
+    /* 抽選ボタンを丸型に */
+    button {
+      width:148px;
+      height:148px;
+      min-height:148px;
+      margin:18px auto 0;
+      padding:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      line-height:1.5;
+      white-space:normal;
+      text-align:center;
+      box-shadow:0 5px 0 #9a4b19,0 8px 20px #0006;
+    }
+    button:active:not(:disabled) { transform:scale(.97); }
+
   </style>
 </head>
 <body>
