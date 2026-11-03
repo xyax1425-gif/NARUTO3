@@ -130,12 +130,43 @@
       .card { padding:26px 16px; }
       .headband { width:245px; }
     }
+
+    /* 最強形態のナルトをさりげなく配置 */
+    .naruto-cameo {
+      position:absolute; z-index:0; top:76px; right:8px;
+      width:112px; height:158px; object-fit:cover; object-position:top center;
+      opacity:.78; border-radius:48% 48% 8px 8px;
+      filter:drop-shadow(0 0 13px #ff6a2a99);
+      -webkit-mask-image:linear-gradient(to bottom,#000 65%,transparent 100%);
+      mask-image:linear-gradient(to bottom,#000 65%,transparent 100%);
+      pointer-events:none;
+    }
+    .card > :not(.naruto-cameo) { position:relative; z-index:1; }
+    .village-tag { z-index:2 !important; }
+    h1 { padding-right:42px; }
+    button {
+      display:block; width:min(88%,340px); min-height:68px;
+      margin:18px auto 0; border-radius:999px;
+      border:2px solid #ffe0a0;
+      background:radial-gradient(ellipse at 50% 0%,#ffd27a,#ff9b32 48%,#c94a19 100%);
+      color:#261307; font-size:19px; letter-spacing:.08em;
+      box-shadow:0 6px 0 #702613,0 0 0 5px #e96b2a30,0 12px 28px #f36b2d55;
+      transition:transform .12s ease,filter .12s ease;
+    }
+    button:active:not(:disabled) { transform:translateY(4px);box-shadow:0 2px 0 #702613,0 0 0 5px #e96b2a30; }
+    button:disabled { border-radius:999px; }
+    @media (max-width:380px) {
+      .naruto-cameo { width:88px;height:130px;top:82px;right:4px; }
+      h1 { padding-right:28px;font-size:26px; }
+      button { width:94%;font-size:17px; }
+    }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card">
       <div class="village-tag">木ノ葉隠れの里</div>
+      <img class="naruto-cameo" src="https://naruto-game-sc.bn-ent.net/images/character/ico/new03.png" alt="重粒子モードのうずまきナルト">
       <div class="headband" aria-label="忍者の額当て">
         <div class="plate">
           <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 23c6-10 17-13 26-6-4 0-7 2-9 5 5 0 8 3 8 7-5-3-10-3-14 0-4 2-8 1-11-2 4 0 6-2 7-4-3 1-5 1-7 0z"/><path d="M16 18c2 2 2 5 0 7"/></svg>
