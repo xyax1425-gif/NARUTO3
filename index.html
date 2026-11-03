@@ -609,7 +609,7 @@
       <p class="chance">当選確率 15% ／ チャンスは1回だけ！</p>
       <p class="instructions">くじ券の番号</p>
       <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="番号を入力" aria-label="抽選番号">
-      <button id="draw" type="button">運命の抽選をする！</button>
+      <button id="draw" type="button">運命をつかめ</button>
       <div class="burst" id="burst" aria-hidden="true">★　★　★</div>
       <section id="result" aria-live="polite">
         <h2 id="resultTitle"></h2>
@@ -656,7 +656,7 @@
         alert(error.message);
         button.disabled = false;
         ticketNumber.disabled = false;
-        button.textContent = "運命の抽選をする！";
+        button.textContent = "運命をつかめ";
       } finally {
         burst.classList.remove("on");
       }
