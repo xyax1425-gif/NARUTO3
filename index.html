@@ -241,6 +241,31 @@
     }
     button:active:not(:disabled) { transform:scale(.97); }
 
+    /* 抽選ボタンをやわらかく発光 */
+    button {
+      position:relative;
+      animation: buttonGlow 1.8s ease-in-out infinite alternate;
+      box-shadow:
+        0 0 10px #ffb34d,
+        0 0 22px #f28a24aa,
+        0 0 42px #f28a2466,
+        0 5px 0 #9a4b19;
+    }
+    @keyframes buttonGlow {
+      from {
+        filter:brightness(1);
+        box-shadow:0 0 8px #ffb34d,0 0 18px #f28a2488,0 0 30px #f28a2444,0 5px 0 #9a4b19;
+      }
+      to {
+        filter:brightness(1.22);
+        box-shadow:0 0 14px #ffe0a0,0 0 30px #ff9b32cc,0 0 55px #f28a2488,0 5px 0 #9a4b19;
+      }
+    }
+    button:disabled { animation:none; }
+    @media (prefers-reduced-motion: reduce) {
+      button { animation:none; }
+    }
+
   </style>
 </head>
 <body>
