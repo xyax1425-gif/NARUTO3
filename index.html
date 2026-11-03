@@ -160,13 +160,75 @@
       h1 { padding-right:28px;font-size:26px; }
       button { width:94%;font-size:17px; }
     }
+
+    /* シンプルなNARUTO風デザイン */
+    body {
+      padding:20px 14px;
+      background:linear-gradient(160deg,#171717,#29221d 55%,#111);
+      color:#fff;
+    }
+    .card {
+      padding:34px 22px 28px;
+      border:1px solid #6b6259;
+      border-radius:18px;
+      background:#1d1b19;
+      box-shadow:0 14px 40px #0008;
+    }
+    .card:before,.card:after { display:none; }
+    .village-tag { display:none; }
+    .headband {
+      width:54px;height:54px;margin:0 auto 18px;padding:0;
+      border:1px solid #777;border-radius:50%;
+      background:#292929;box-shadow:none;transform:none;
+    }
+    .plate { width:40px;height:40px;border-radius:50%; }
+    .plate svg { width:27px;height:27px; }
+    .eyebrow { margin:0 0 8px;color:#f39a36;font-size:11px;letter-spacing:.2em; }
+    h1 {
+      padding:0;color:#fff;font-size:clamp(27px,7vw,34px);
+      letter-spacing:.06em;text-shadow:none;
+    }
+    .sub { margin:9px 0 24px;color:#c9c2bb;font-size:13px; }
+    .scroll-label { margin-bottom:16px;color:#bdb5ac; }
+    .scroll-label:before,.scroll-label:after { border-color:#75695e; }
+    .ribbon {
+      margin-bottom:20px;padding:6px 15px;border:0;border-radius:20px;
+      background:#a94c25;box-shadow:none;clip-path:none;
+      font-size:12px;letter-spacing:.08em;
+    }
+    .instructions { color:#eee5dc;font-size:14px; }
+    input {
+      height:52px;border:1px solid #665b51;border-radius:10px;
+      background:#111;color:#fff;box-shadow:none;font-size:20px;
+    }
+    input:focus { border-color:#f39a36;box-shadow:0 0 0 2px #f39a3625; }
+    button {
+      width:100%;min-height:54px;margin:16px auto 0;
+      border:0;border-radius:999px;background:#ed8b2f;
+      color:#21150c;text-shadow:none;font-size:16px;
+      box-shadow:none;letter-spacing:.04em;
+    }
+    button:active:not(:disabled) { transform:scale(.98);box-shadow:none; }
+    #result {
+      border:1px solid #a97842;border-radius:12px;
+      background:#141210;box-shadow:none;
+    }
+    #resultTitle { text-shadow:none; }
+    .note { color:#aaa198; }
+    footer { color:#77716b; }
+    @media (max-width:380px) {
+      .card { padding:30px 17px 24px; }
+      .headband { width:54px; }
+      h1 { padding:0;font-size:27px; }
+      button { width:100%;font-size:16px; }
+    }
+
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card">
       <div class="village-tag">木ノ葉隠れの里</div>
-      <img class="naruto-cameo" src="https://naruto-game-sc.bn-ent.net/images/character/ico/new03.png" alt="重粒子モードのうずまきナルト">
       <div class="headband" aria-label="忍者の額当て">
         <div class="plate">
           <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 23c6-10 17-13 26-6-4 0-7 2-9 5 5 0 8 3 8 7-5-3-10-3-14 0-4 2-8 1-11-2 4 0 6-2 7-4-3 1-5 1-7 0z"/><path d="M16 18c2 2 2 5 0 7"/></svg>
