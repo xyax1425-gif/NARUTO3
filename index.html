@@ -534,6 +534,68 @@
       #result { margin-top:17px;padding:16px 12px;border:1px solid #e6c65f;border-radius:14px;background:#100f1e; }
       footer { display:none; }
     }
+
+    /* 参考画像と同じ文言・ボタン形状 */
+    @media (max-width:480px) {
+      body {
+        min-height:100svh;padding:30px 20px;
+        background:
+          radial-gradient(ellipse at 50% 36%,#71351f 0%,#3c211b 43%,transparent 76%),
+          linear-gradient(145deg,#171522 0%,#0c0b14 100%);
+      }
+      .wrap { width:100%;max-width:630px; }
+      .card {
+        padding:48px 38px 38px;border:2px solid #e6c65f;border-radius:43px;
+        background:linear-gradient(155deg,#211d35 0%,#100f1e 70%,#090914 100%);
+        box-shadow:0 0 40px #ed792b40,0 18px 55px #000b;
+      }
+      .eyebrow { margin:0 0 25px;color:#ffd64f;font-size:16px;letter-spacing:4px; }
+      h1 { margin:0;font-size:clamp(30px,7vw,42px);line-height:1.35;white-space:nowrap;letter-spacing:0; }
+      .sub { margin:18px 0 38px;color:#d4d0df;font-size:clamp(15px,3.8vw,20px);white-space:nowrap; }
+      .trial-orb {
+        width:clamp(220px,39vw,270px);height:clamp(220px,39vw,270px);
+        margin:0 auto 32px;border:4px solid #8e8a9a;border-radius:50%;
+        display:grid;place-items:center;
+        background:radial-gradient(circle at 50% 43%,#ffcf25 0%,#ff8a12 35%,#a6380b 63%,#211322 78%);
+        color:#fff;font-size:clamp(24px,5vw,34px);font-weight:900;
+        text-shadow:0 2px 5px #632000;
+        box-shadow:0 0 0 5px #ffb52b22,0 0 26px #ff9b25,0 0 62px #ff8b1c99,inset 0 0 25px #ffdd4d99;
+      }
+      .chance { margin:0 0 34px;color:#ddd5df;font-size:17px;white-space:nowrap; }
+      .instructions { margin:0 0 12px;text-align:left;color:#f5edf2;font-size:17px; }
+      input {
+        height:94px;border:3px solid #f0d45c;border-radius:20px;
+        background:#fff;color:#29232b;font-size:clamp(24px,5vw,32px);
+        box-shadow:none;
+      }
+      input::placeholder { color:#aaa8aa; }
+      button {
+        display:block;width:100%;height:100px;min-height:100px;margin:24px auto 0;padding:0 12px;
+        border:0;border-radius:999px;
+        background:linear-gradient(100deg,#ffd52e 0%,#ffbd25 45%,#f36b18 100%);
+        color:#211322;font-family:inherit;font-size:clamp(22px,5vw,30px);
+        font-weight:950;letter-spacing:0;white-space:nowrap;
+        text-shadow:0 1px 0 #fff5;
+        box-shadow:0 9px 0 #8d3d16,0 15px 34px #ff7b2866;
+        animation:buttonGlow 1.8s ease-in-out infinite alternate;
+      }
+      button:active:not(:disabled) { transform:translateY(5px); }
+      .note {
+        margin:34px 0 0;color:#bdb7c8;font-size:14px;line-height:1.9;
+        text-align:center;
+      }
+      #result { margin-top:20px;border:1px solid #e6c65f;border-radius:18px;background:#100f1e; }
+      footer { display:none; }
+    }
+    @media (max-width:380px) {
+      .card { padding-left:24px;padding-right:24px; }
+      .eyebrow { font-size:13px;letter-spacing:3px; }
+      h1 { font-size:clamp(25px,7vw,30px); }
+      .sub { font-size:13px; }
+      .chance { font-size:13px; }
+      button { font-size:clamp(18px,5vw,22px); }
+      .note { font-size:12px; }
+    }
   </style>
 </head>
 <body>
@@ -545,14 +607,14 @@
       <div class="trial-orb" aria-hidden="true">火影の試練</div>
       <p class="chance">当選確率 15% ／ チャンスは1回だけ！</p>
       <p class="instructions">くじ券の番号</p>
-      <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="抽選番号を入力" aria-label="抽選番号">
+      <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="番号を入力" aria-label="抽選番号">
       <button id="draw" type="button">運命の抽選をする！</button>
       <div class="burst" id="burst" aria-hidden="true">★　★　★</div>
       <section id="result" aria-live="polite">
         <h2 id="resultTitle"></h2>
         <p id="resultText"></p>
       </section>
-      <p class="note">※任務番号は1〜20桁の数字で入力してください。<br>※同じ番号での抽選は一度限り。健闘を祈る！</p>
+      <p class="note">番号1つにつき抽選は1回限りです。使用済みの番号は、別のスマホからも再使用できません。</p>
     </section>
     <footer>© DOUBLE UP CHANCE</footer>
   </main>
