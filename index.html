@@ -7,597 +7,111 @@
   <meta name="theme-color" content="#17130f">
   <title>NARUTO - ダブルアップ抽選</title>
   <style>
-    :root { color-scheme: dark; --orange:#f28a24; --gold:#ffd36a; --ink:#17130f; }
+    :root { color-scheme:dark; --gold:#ffd64f; }
     * { box-sizing:border-box; }
     body {
-      margin:0; min-height:100vh; padding:24px 16px;
+      margin:0; min-height:100vh; min-height:100svh; padding:30px 20px;
       display:flex; align-items:center; justify-content:center;
       font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
-      color:#fff7e9;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(242,138,36,.28), transparent 48%),
-        linear-gradient(145deg,#302017 0%,#17130f 52%,#090909 100%);
-    }
-    .wrap { width:min(100%,520px); }
-    .card {
-      position:relative; overflow:hidden; padding:30px 22px;
-      border:1px solid rgba(255,211,106,.55); border-radius:22px;
-      background:linear-gradient(160deg,rgba(55,37,25,.97),rgba(17,15,14,.98));
-      box-shadow:0 20px 70px #000a, inset 0 0 35px #f28a2415;
-      text-align:center;
-    }
-    .card:before,.card:after { content:"";position:absolute;width:130px;height:130px;border:2px solid #f28a242b;transform:rotate(45deg);pointer-events:none; }
-    .card:before { top:-90px;left:-70px; } .card:after { bottom:-90px;right:-70px; }
-    .mark { display:inline-grid;place-items:center;width:66px;height:66px;border:2px solid var(--gold);border-radius:50%;color:var(--gold);font-size:30px;font-weight:900;box-shadow:0 0 22px #f28a2440; }
-    .eyebrow { margin:16px 0 7px;color:var(--gold);font-size:12px;letter-spacing:.22em;font-weight:800; }
-    h1 { margin:0;font-size:clamp(27px,7vw,38px);line-height:1.2;letter-spacing:.04em;text-shadow:2px 3px 0 #8e3c13; }
-    .sub { margin:10px 0 22px;color:#e9c9a4;font-size:14px; }
-    .ribbon { display:inline-block;margin:0 auto 22px;padding:7px 18px;background:linear-gradient(90deg,#a94413,var(--orange),#a94413);color:#fff;font-weight:900;letter-spacing:.12em;clip-path:polygon(7% 0,93% 0,100% 50%,93% 100%,7% 100%,0 50%); }
-    .instructions { margin:0 0 10px;font-size:15px;font-weight:700; }
-    input { width:100%;height:56px;padding:0 16px;border:1px solid #a8794d;border-radius:12px;background:#100e0c;color:white;text-align:center;font-size:22px;letter-spacing:.12em;outline:none; }
-    input:focus { border-color:var(--gold);box-shadow:0 0 0 3px #ffd36a25; }
-    button { width:100%;min-height:58px;margin-top:14px;border:0;border-radius:12px;background:linear-gradient(180deg,#ffb347,#e66d16);color:#241307;font-size:18px;font-weight:900;letter-spacing:.05em;box-shadow:0 5px 0 #873b10,0 10px 25px #e66d1640;cursor:pointer; }
-    button:disabled { opacity:.7;cursor:wait;box-shadow:none; }
-    .note { margin:20px 0 0;color:#bca58e;font-size:11px;line-height:1.7; }
-    #result { display:none;margin-top:22px;padding:20px 14px;border:1px solid var(--gold);border-radius:14px;background:#0c0a08; }
-    #result.show { display:block;animation:pop .45s ease-out; }
-    #resultTitle { margin:0 0 9px;color:var(--gold);font-size:25px;font-weight:900; }
-    #resultText { margin:0;color:#f8e8d5;line-height:1.7; }
-    .burst { display:none;color:var(--gold);font-size:28px;letter-spacing:.2em;margin:10px 0; }
-    .burst.on { display:block;animation:flash .55s infinite alternate; }
-    @keyframes pop { from { opacity:0;transform:scale(.94); } to { opacity:1;transform:scale(1); } }
-    @keyframes flash { from { opacity:.35;transform:scale(.9); } to { opacity:1;transform:scale(1.08); } }
-    footer { margin-top:18px;text-align:center;color:#9d8975;font-size:10px;letter-spacing:.1em; }
-
-    /* 木ノ葉の里をイメージした忍者風デザイン */
-    body {
-      background:
-        radial-gradient(ellipse at 50% 8%,#f28a2440,transparent 38%),
-        radial-gradient(circle at 8% 78%,#b52b1d22,transparent 25%),
-        linear-gradient(145deg,#263342 0%,#111923 48%,#090b10 100%);
-    }
-    .card {
-      border:2px solid #b8b5a9;
-      border-radius:8px;
-      background:
-        linear-gradient(135deg,#26313aee,#101820f5 62%),
-        repeating-linear-gradient(45deg,transparent 0 12px,#ffffff08 12px 13px);
-      box-shadow:0 0 0 5px #171d25,0 0 0 7px #a94c25,0 22px 70px #000c,inset 0 0 45px #f28a241c;
-    }
-    .card:before,.card:after {
-      width:110px;height:110px;border:3px solid #d65d2a55;
-      border-radius:50%;transform:none;
-    }
-    .card:before { top:-75px;left:-65px; }
-    .card:after { bottom:-75px;right:-65px; }
-    .headband {
-      width:min(100%,300px);height:58px;margin:0 auto 18px;padding:7px 20px;
-      display:flex;align-items:center;justify-content:center;
-      border:2px solid #7b8188;border-radius:7px;
-      background:linear-gradient(180deg,#343b43,#151a20 48%,#343b43);
-      box-shadow:0 5px 0 #090d12,0 9px 18px #0008;
-      transform:rotate(-2deg);
-    }
-    .plate {
-      width:100px;height:42px;display:grid;place-items:center;
-      border:2px solid #aeb2b4;border-radius:12px;
-      background:linear-gradient(135deg,#d5d1c4,#777b7b 48%,#c9c5b8);
-      box-shadow:inset 0 0 0 2px #555b60,0 2px 5px #0008;
-    }
-    .plate svg { width:34px;height:34px;fill:none;stroke:#242a30;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round; }
-    .mark { display:none; }
-    .eyebrow { color:#ffb14b;text-shadow:0 0 12px #f28a2488; }
-    h1 { color:#fff3dc;text-shadow:3px 3px 0 #a63e1a,0 0 18px #f28a2466; }
-    .sub { color:#d6dbe0; }
-    .ribbon {
-      border:1px solid #ffc66d;
-      background:linear-gradient(90deg,#8d281b,#e85b20,#8d281b);
-      box-shadow:0 4px 15px #e85b2044;
-    }
-    .instructions { color:#ffe0ae; }
-    input {
-      border:2px solid #8e9aa3;border-radius:5px;
-      background:linear-gradient(180deg,#0b1118,#17222c);
-      box-shadow:inset 0 3px 10px #0009;
-    }
-    input:focus { border-color:#ffad45;box-shadow:0 0 0 3px #ffad4530,0 0 20px #ffad4540; }
-    button {
-      border:1px solid #ffd17a;border-radius:5px;
-      background:linear-gradient(180deg,#ffbd59,#ef741e 55%,#b83e18);
-      color:#20130c;text-shadow:0 1px #ffe3a1;
-      box-shadow:0 5px 0 #772a17,0 10px 25px #e66d1640;
-    }
-    #result {
-      border:2px solid #e5a74c;border-radius:6px;
-      background:linear-gradient(145deg,#202a32,#0b1016);
-      box-shadow:inset 0 0 25px #f28a2422,0 0 18px #f28a2422;
-    }
-    #resultTitle { text-shadow:0 0 15px #ffd36a77; }
-    .note { color:#b9c1c8; }
-    .scroll-label {
-      display:flex;align-items:center;justify-content:center;gap:9px;
-      margin:0 auto 17px;color:#e7c28d;font-size:11px;font-weight:800;letter-spacing:.18em;
-    }
-    .scroll-label:before,.scroll-label:after {
-      content:"";width:32px;height:5px;border-top:1px solid #c58b4b;border-bottom:1px solid #c58b4b;
-    }
-    .village-tag {
-      position:absolute;top:14px;right:14px;padding:4px 7px;
-      border:1px solid #d16b3d88;color:#e9a16b;font-size:9px;letter-spacing:.12em;
-      transform:rotate(4deg);
-    }
-    .burst { color:#ffcf6a;text-shadow:0 0 16px #ff8b25; }
-    @media (max-width:380px) {
-      .card { padding:26px 16px; }
-      .headband { width:245px; }
-    }
-
-    /* 最強形態のナルトをさりげなく配置 */
-    .naruto-cameo {
-      position:absolute; z-index:0; top:76px; right:8px;
-      width:112px; height:158px; object-fit:cover; object-position:top center;
-      opacity:.78; border-radius:48% 48% 8px 8px;
-      filter:drop-shadow(0 0 13px #ff6a2a99);
-      -webkit-mask-image:linear-gradient(to bottom,#000 65%,transparent 100%);
-      mask-image:linear-gradient(to bottom,#000 65%,transparent 100%);
-      pointer-events:none;
-    }
-    .card > :not(.naruto-cameo) { position:relative; z-index:1; }
-    .village-tag { z-index:2 !important; }
-    h1 { padding-right:42px; }
-    button {
-      display:block; width:min(88%,340px); min-height:68px;
-      margin:18px auto 0; border-radius:999px;
-      border:2px solid #ffe0a0;
-      background:radial-gradient(ellipse at 50% 0%,#ffd27a,#ff9b32 48%,#c94a19 100%);
-      color:#261307; font-size:19px; letter-spacing:.08em;
-      box-shadow:0 6px 0 #702613,0 0 0 5px #e96b2a30,0 12px 28px #f36b2d55;
-      transition:transform .12s ease,filter .12s ease;
-    }
-    button:active:not(:disabled) { transform:translateY(4px);box-shadow:0 2px 0 #702613,0 0 0 5px #e96b2a30; }
-    button:disabled { border-radius:999px; }
-    @media (max-width:380px) {
-      .naruto-cameo { width:88px;height:130px;top:82px;right:4px; }
-      h1 { padding-right:28px;font-size:26px; }
-      button { width:94%;font-size:17px; }
-    }
-
-    /* シンプルなNARUTO風デザイン */
-    body {
-      padding:20px 14px;
-      background:linear-gradient(160deg,#171717,#29221d 55%,#111);
       color:#fff;
-    }
-    .card {
-      padding:34px 22px 28px;
-      border:1px solid #6b6259;
-      border-radius:18px;
-      background:#1d1b19;
-      box-shadow:0 14px 40px #0008;
-    }
-    .card:before,.card:after { display:none; }
-    .village-tag { display:none; }
-    .headband {
-      width:54px;height:54px;margin:0 auto 18px;padding:0;
-      border:1px solid #777;border-radius:50%;
-      background:#292929;box-shadow:none;transform:none;
-    }
-    .plate { width:40px;height:40px;border-radius:50%; }
-    .plate svg { width:27px;height:27px; }
-    .eyebrow { margin:0 0 8px;color:#f39a36;font-size:11px;letter-spacing:.2em; }
-    h1 {
-      padding:0;color:#fff;font-size:clamp(27px,7vw,34px);
-      letter-spacing:.06em;text-shadow:none;
-    }
-    .sub { margin:9px 0 24px;color:#c9c2bb;font-size:13px; }
-    .scroll-label { margin-bottom:16px;color:#bdb5ac; }
-    .scroll-label:before,.scroll-label:after { border-color:#75695e; }
-    .ribbon {
-      margin-bottom:20px;padding:6px 15px;border:0;border-radius:20px;
-      background:#a94c25;box-shadow:none;clip-path:none;
-      font-size:12px;letter-spacing:.08em;
-    }
-    .instructions { color:#eee5dc;font-size:14px; }
-    input {
-      height:52px;border:1px solid #665b51;border-radius:10px;
-      background:#111;color:#fff;box-shadow:none;font-size:20px;
-    }
-    input:focus { border-color:#f39a36;box-shadow:0 0 0 2px #f39a3625; }
-    button {
-      width:100%;min-height:54px;margin:16px auto 0;
-      border:0;border-radius:999px;background:#ed8b2f;
-      color:#21150c;text-shadow:none;font-size:16px;
-      box-shadow:none;letter-spacing:.04em;
-    }
-    button:active:not(:disabled) { transform:scale(.98);box-shadow:none; }
-    #result {
-      border:1px solid #a97842;border-radius:12px;
-      background:#141210;box-shadow:none;
-    }
-    #resultTitle { text-shadow:none; }
-    .note { color:#aaa198; }
-    footer { color:#77716b; }
-    @media (max-width:380px) {
-      .card { padding:30px 17px 24px; }
-      .headband { width:54px; }
-      h1 { padding:0;font-size:27px; }
-      button { width:100%;font-size:16px; }
-    }
-
-    /* 抽選ボタンを丸型に */
-    button {
-      width:148px;
-      height:148px;
-      min-height:148px;
-      margin:18px auto 0;
-      padding:20px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:50%;
-      line-height:1.5;
-      white-space:normal;
-      text-align:center;
-      box-shadow:0 5px 0 #9a4b19,0 8px 20px #0006;
-    }
-    button:active:not(:disabled) { transform:scale(.97); }
-
-    /* 抽選ボタンをやわらかく発光 */
-    button {
-      position:relative;
-      animation: buttonGlow 1.8s ease-in-out infinite alternate;
-      box-shadow:
-        0 0 10px #ffb34d,
-        0 0 22px #f28a24aa,
-        0 0 42px #f28a2466,
-        0 5px 0 #9a4b19;
-    }
-    @keyframes buttonGlow {
-      from {
-        filter:brightness(1);
-        box-shadow:0 0 8px #ffb34d,0 0 18px #f28a2488,0 0 30px #f28a2444,0 5px 0 #9a4b19;
-      }
-      to {
-        filter:brightness(1.22);
-        box-shadow:0 0 14px #ffe0a0,0 0 30px #ff9b32cc,0 0 55px #f28a2488,0 5px 0 #9a4b19;
-      }
-    }
-    button {
-      font-family:"Arial Black","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
-      font-size:15px;
-      font-weight:900;
-      letter-spacing:.02em;
-      white-space:nowrap;
-      padding:12px 8px;
-      text-shadow:0 1px 0 #ffe0a0,0 2px 3px #6f2b0d88;
-      -webkit-text-stroke:.25px currentColor;
-    }
-    button:disabled { animation:none; }
-    @media (prefers-reduced-motion: reduce) {
-      button { animation:none; }
-    }
-
-
-    /* 参考画像に合わせた、炎のチャクラをイメージしたシンプルな画面 */
-    body {
-      min-height:100vh; padding:28px 16px;
       background:
-        radial-gradient(ellipse at 50% 38%,#8b3d16 0%,#4a2418 34%,transparent 67%),
+        radial-gradient(ellipse at 50% 36%,#71351f 0%,#3c211b 43%,transparent 76%),
         linear-gradient(145deg,#171522 0%,#0c0b14 100%);
-      color:#fff;
     }
-    .wrap { width:min(100%,630px); }
+    .wrap { width:100%; max-width:630px; }
     .card {
-      padding:48px 38px 40px;
-      border:2px solid #e6c65f;
-      border-radius:42px;
-      background:linear-gradient(155deg,#211d35 0%,#100f1e 68%,#090914 100%);
-      box-shadow:0 0 0 1px #8b6c32,0 0 55px #ed792b44,0 22px 70px #000b;
+      width:100%; padding:48px 38px 38px;
+      border:2px solid #e6c65f; border-radius:43px;
+      background:linear-gradient(155deg,#211d35 0%,#100f1e 70%,#090914 100%);
+      box-shadow:0 0 40px #ed792b40,0 18px 55px #000b;
       text-align:center;
     }
     .eyebrow {
-      margin:0 0 24px;color:#ffd64f;
-      font-size:16px;font-weight:900;letter-spacing:.22em;
+      margin:0 0 25px; color:#ffd64f;
+      font-size:16px; font-weight:900; letter-spacing:4px;
     }
     h1 {
-      margin:0;color:#fff;font-size:clamp(30px,7vw,43px);
-      line-height:1.35;letter-spacing:.02em;text-shadow:0 2px 12px #0008;
+      margin:0; color:#fff; font-size:clamp(30px,7vw,42px);
+      line-height:1.35; letter-spacing:0; white-space:nowrap;
     }
-    .sub { margin:18px 0 34px;color:#d4d0df;font-size:clamp(15px,3.8vw,20px); }
+    .sub {
+      margin:18px 0 38px; color:#d4d0df;
+      font-size:clamp(15px,3.8vw,20px); white-space:nowrap;
+    }
     .trial-orb {
-      width:clamp(190px,40vw,270px);height:clamp(190px,40vw,270px);
-      margin:0 auto 30px;display:grid;place-items:center;border-radius:50%;
-      border:4px solid #8e8a9a;
+      width:clamp(220px,39vw,270px); height:clamp(220px,39vw,270px);
+      margin:0 auto 32px; display:grid; place-items:center;
+      border:4px solid #8e8a9a; border-radius:50%;
       background:radial-gradient(circle at 50% 43%,#ffcf25 0%,#ff8a12 35%,#a6380b 63%,#211322 78%);
-      color:#fff;font-size:clamp(24px,5vw,34px);font-weight:900;
+      color:#fff; font-size:clamp(24px,5vw,34px); font-weight:900;
       text-shadow:0 2px 5px #632000;
       box-shadow:0 0 0 5px #ffb52b22,0 0 26px #ff9b25,0 0 62px #ff8b1c99,inset 0 0 25px #ffdd4d99;
     }
-    .chance { margin:0 0 34px;color:#ddd5df;font-size:17px; }
-    .instructions { margin:0 0 12px;text-align:left;color:#f5edf2;font-size:17px;font-weight:800; }
+    .chance { margin:0 0 34px; color:#ddd5df; font-size:17px; white-space:nowrap; }
+    .instructions { margin:0 0 12px; text-align:left; color:#f5edf2; font-size:17px; font-weight:800; }
     input {
-      width:100%;height:94px;padding:0 18px;border:3px solid #f0d45c;
-      border-radius:20px;background:#fff;color:#201b24;
-      box-shadow:0 0 0 1px #fff5;font-size:clamp(24px,5vw,32px);
-      letter-spacing:.08em;text-align:center;
+      display:block; width:100%; height:94px; padding:0 18px;
+      border:3px solid #f0d45c; border-radius:20px;
+      background:#fff; color:#29232b; font-size:clamp(24px,5vw,32px);
+      letter-spacing:.08em; text-align:center; box-shadow:none;
     }
     input::placeholder { color:#aaa8aa; }
-    input:focus { border-color:#ffe77c;box-shadow:0 0 0 4px #ffd34b33,0 0 22px #ffae2c66; }
+    input:focus { outline:none; border-color:#ffe77c; box-shadow:0 0 0 4px #ffd34b33,0 0 22px #ffae2c66; }
     button {
-      display:block;width:100%;min-height:96px;margin:24px auto 0;padding:18px;
-      border:0;border-radius:999px;
+      display:flex; align-items:center; justify-content:center;
+      width:100%; min-height:96px; margin:24px auto 0; padding:18px 12px;
+      border:0; border-radius:999px;
       background:linear-gradient(100deg,#ffd52e 0%,#ffad24 48%,#f36b18 100%);
-      color:#241322;font-family:inherit;font-size:clamp(22px,5vw,30px);
-      font-weight:950;letter-spacing:.02em;white-space:nowrap;
+      color:#241322; font-family:inherit; font-size:clamp(20px,4.8vw,29px);
+      font-weight:950; letter-spacing:0; white-space:nowrap; word-break:keep-all;
       text-shadow:0 1px 0 #fff5;
       box-shadow:0 9px 0 #8d3d16,0 15px 34px #ff7b2866;
       animation:buttonGlow 1.8s ease-in-out infinite alternate;
+      cursor:pointer;
     }
-    button:active:not(:disabled) { transform:translateY(5px);box-shadow:0 4px 0 #8d3d16,0 8px 20px #ff7b2844; }
-    button:disabled { opacity:.7;animation:none; }
+    button:active:not(:disabled) { transform:translateY(5px); box-shadow:0 4px 0 #8d3d16,0 8px 20px #ff7b2844; }
+    button:disabled { opacity:.7; animation:none; cursor:wait; }
     @keyframes buttonGlow {
-      from { filter:brightness(1);box-shadow:0 9px 0 #8d3d16,0 0 18px #ff9b2c88,0 15px 34px #ff7b2844; }
-      to { filter:brightness(1.14);box-shadow:0 9px 0 #8d3d16,0 0 30px #ffd45aaa,0 15px 42px #ff7b2877; }
+      from { filter:brightness(1); box-shadow:0 9px 0 #8d3d16,0 0 18px #ff9b2c88,0 15px 34px #ff7b2844; }
+      to { filter:brightness(1.14); box-shadow:0 9px 0 #8d3d16,0 0 30px #ffd45aaa,0 15px 42px #ff7b2877; }
     }
-    .note { margin-top:34px;color:#bdb7c8;font-size:14px;line-height:1.9; }
-    #result { border:1px solid #e6c65f;border-radius:18px;background:#100f1e; }
-    #resultTitle { color:#ffd65a; }
+    .note { margin:34px 0 0; color:#bdb7c8; font-size:14px; line-height:1.9; text-align:center; }
+    #result { display:none; margin-top:20px; padding:20px 14px; border:1px solid #e6c65f; border-radius:18px; background:#100f1e; }
+    #result.show { display:block; animation:pop .45s ease-out; }
+    #resultTitle { margin:0 0 9px; color:#ffd65a; font-size:25px; font-weight:900; }
+    #resultText { margin:0; color:#f8e8d5; line-height:1.7; }
+    .burst { display:none; color:#ffcf6a; font-size:28px; letter-spacing:.2em; margin:10px 0; }
+    .burst.on { display:block; animation:flash .55s infinite alternate; }
+    @keyframes pop { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
+    @keyframes flash { from { opacity:.35; transform:scale(.9); } to { opacity:1; transform:scale(1.08); } }
     footer { display:none; }
     @media (max-width:480px) {
-      body { padding:22px 12px; }
-      .card { padding:42px 22px 34px;border-radius:34px; }
-      .eyebrow { font-size:13px;margin-bottom:22px; }
-      .sub { margin:16px 0 30px; }
-      .chance { font-size:14px;margin-bottom:30px; }
-      input { height:78px;border-radius:17px; }
-      button { min-height:82px;font-size:clamp(19px,5vw,25px); }
-      .note { font-size:12px;margin-top:30px; }
-    }
-    @media (prefers-reduced-motion:reduce) { button { animation:none; } }
-
-    /* 添付画像のレイアウトに合わせた最終調整 */
-    .card {
-      padding:48px 38px 40px;
-      border:2px solid #e6c65f;
-      border-radius:44px;
-      background:linear-gradient(155deg,#211d35 0%,#100f1e 70%,#090914 100%);
-      box-shadow:0 0 45px #ed792b35,0 18px 60px #000b;
-    }
-    .eyebrow { margin:0 0 24px;color:#ffd64f;font-size:16px;letter-spacing:.22em; }
-    h1 { font-size:clamp(30px,7vw,43px);line-height:1.35; }
-    .sub { margin:18px 0 38px;font-size:clamp(15px,3.8vw,20px); }
-    .trial-orb {
-      width:clamp(220px,40vw,270px);height:clamp(220px,40vw,270px);
-      margin:0 auto 32px;border:4px solid #8e8a9a;border-radius:50%;
-      display:grid;place-items:center;
-      background:radial-gradient(circle at 50% 43%,#ffcf25 0%,#ff8a12 35%,#a6380b 63%,#211322 78%);
-      color:#fff;font-size:clamp(24px,5vw,34px);font-weight:900;
-      text-shadow:0 2px 5px #632000;
-      box-shadow:0 0 0 5px #ffb52b22,0 0 26px #ff9b25,0 0 62px #ff8b1c99,inset 0 0 25px #ffdd4d99;
-    }
-    .chance { margin:0 0 34px;color:#ddd5df;font-size:17px; }
-    .instructions { margin:0 0 12px;text-align:left;color:#f5edf2;font-size:17px; }
-    input {
-      height:94px;border:3px solid #f0d45c;border-radius:20px;
-      background:#fff;color:#29232b;font-size:clamp(24px,5vw,32px);
-      box-shadow:none;
-    }
-    input::placeholder { color:#aaa8aa; }
-    button {
-      width:100%;height:auto;min-height:96px;margin:24px auto 0;padding:18px 12px;
-      border:0;border-radius:999px;
-      background:linear-gradient(100deg,#ffd52e 0%,#ffad24 48%,#f36b18 100%);
-      color:#241322;font-family:inherit;font-size:clamp(20px,4.8vw,29px);
-      font-weight:950;letter-spacing:0;white-space:nowrap;
-      text-shadow:0 1px 0 #fff5;
-      box-shadow:0 9px 0 #8d3d16,0 15px 34px #ff7b2866;
-      animation:buttonGlow 1.8s ease-in-out infinite alternate;
-    }
-    button:active:not(:disabled) { transform:translateY(5px);box-shadow:0 4px 0 #8d3d16,0 8px 20px #ff7b2844; }
-    .note { margin-top:34px;font-size:14px;line-height:1.9;color:#bdb7c8; }
-    #result { border:1px solid #e6c65f;border-radius:18px;background:#100f1e; }
-    footer { display:none; }
-    @media(max-width:480px) {
-      body { padding:22px 12px; }
-      .card { padding:48px 38px 40px; }
-      .eyebrow { font-size:13px; }
-      .sub { margin:18px 0 38px; }
-      .chance { font-size:14px; }
-      input { height:78px; }
-      button { min-height:82px;font-size:clamp(17px,4.8vw,24px); }
-      .note { font-size:12px; }
-    }
-
-    /* スマホ表示は参考写真の比率・余白・サイズに合わせる */
-    @media (max-width:480px) {
-      body {
-        min-height:100svh;
-        padding:24px 12px;
-        background:
-          radial-gradient(ellipse at 50% 32%,#783719 0%,#3b211b 38%,transparent 72%),
-          linear-gradient(145deg,#171522 0%,#0c0b14 100%);
-      }
-      .wrap { width:100%;max-width:390px; }
-      .card {
-        padding:28px 21px 25px;
-        border:1.5px solid #e6c65f;
-        border-radius:25px;
-        background:linear-gradient(155deg,#211d35 0%,#100f1e 70%,#090914 100%);
-        box-shadow:0 0 35px #ed792b38,0 16px 42px #000b;
-      }
-      .eyebrow {
-        margin:0 0 14px;
-        font-size:11px;
-        letter-spacing:3px;
-      }
-      h1 { font-size:26px;line-height:1.35;letter-spacing:0; }
-      .sub { margin:12px 0 22px;font-size:13px;line-height:1.6; }
-      .trial-orb {
-        width:150px;height:150px;margin:0 auto 17px;
-        border-width:2px;font-size:19px;
-        box-shadow:0 0 0 3px #ffb52b22,0 0 17px #ff9b25,0 0 36px #ff8b1c99,inset 0 0 15px #ffdd4d99;
-      }
-      .chance { margin:0 0 20px;font-size:12px; }
-      .instructions { margin:0 0 9px;font-size:13px; }
-      input {
-        height:60px;padding:0 12px;border-width:2px;border-radius:12px;
-        font-size:20px;
-      }
-      button {
-        width:100%;min-height:58px;height:58px;margin:14px auto 0;padding:8px 6px;
-        border-radius:999px;font-size:17px;letter-spacing:0;
-        box-shadow:0 5px 0 #8d3d16,0 9px 22px #ff7b2866;
-      }
-      .note { margin:24px 0 0;font-size:11px;line-height:1.8; }
-      #result { margin-top:16px;padding:16px 12px; }
-    }
-
-    /* 参考スクリーンショットのスマホ画面を寸法から合わせる */
-    @media (max-width:480px) {
-      body {
-        min-height:100svh;
-        padding:18px 19.5px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:
-          radial-gradient(ellipse at 50% 38%,#71351f 0%,#3c211b 42%,transparent 76%),
-          linear-gradient(145deg,#171522 0%,#0c0b14 100%);
-      }
-      .wrap { width:100%;max-width:none; }
-      .card {
-        width:100%;
-        padding:26px 19px 30px;
-        border:1.5px solid #e6c65f;
-        border-radius:23px;
-        background:linear-gradient(155deg,#211d35 0%,#100f1e 70%,#090914 100%);
-        box-shadow:0 0 34px #ed792b38,0 16px 42px #000b;
-        text-align:center;
-      }
-      .eyebrow {
-        margin:0 0 17px;
-        color:#ffd64f;
-        font-size:11px;
-        line-height:1.2;
-        font-weight:900;
-        letter-spacing:3px;
-      }
-      h1 {
-        margin:0;
-        color:#fff;
-        font-size:25px;
-        line-height:1.35;
-        letter-spacing:0;
-        white-space:nowrap;
-      }
-      .sub {
-        margin:12px 0 19px;
-        color:#d4d0df;
-        font-size:13px;
-        line-height:1.6;
-        white-space:nowrap;
-      }
-      .trial-orb {
-        width:136px;height:136px;
-        margin:0 auto 17px;
-        display:grid;place-items:center;
-        border:2px solid #8e8a9a;border-radius:50%;
-        background:radial-gradient(circle at 50% 43%,#ffcf25 0%,#ff8a12 35%,#a6380b 63%,#211322 78%);
-        color:#fff;font-size:19px;font-weight:900;
-        text-shadow:0 2px 5px #632000;
-        box-shadow:0 0 0 3px #ffb52b22,0 0 17px #ff9b25,0 0 36px #ff8b1c99,inset 0 0 15px #ffdd4d99;
-      }
-      .chance { margin:0 0 17px;color:#ddd5df;font-size:12px;line-height:1.4;white-space:nowrap; }
-      .instructions { margin:0 0 9px;text-align:left;color:#f5edf2;font-size:13px;line-height:1.4; }
-      input {
-        display:block;width:100%;height:54px;padding:0 12px;
-        border:2px solid #f0d45c;border-radius:12px;
-        background:#fff;color:#29232b;
-        font-size:20px;letter-spacing:.08em;text-align:center;
-        box-shadow:none;
-      }
-      input::placeholder { color:#aaa8aa; }
-      button {
-        display:flex;width:100%;height:56px;min-height:56px;
-        margin:12px auto 0;padding:0 5px;
-        align-items:center;justify-content:center;
-        border:0;border-radius:999px;
-        background:linear-gradient(100deg,#ffd52e 0%,#ffad24 48%,#f36b18 100%);
-        color:#241322;font-family:inherit;
-        font-size:17px;font-weight:950;letter-spacing:0;
-        white-space:nowrap;text-align:center;
-        text-shadow:0 1px 0 #fff5;
-        box-shadow:0 6px 0 #8d3d16,0 10px 24px #ff7b2866;
-        animation:buttonGlow 1.8s ease-in-out infinite alternate;
-      }
-      button:active:not(:disabled) { transform:translateY(3px); }
-      .note { margin:24px 0 0;color:#bdb7c8;font-size:11px;line-height:1.8; }
-      #result { margin-top:17px;padding:16px 12px;border:1px solid #e6c65f;border-radius:14px;background:#100f1e; }
-      footer { display:none; }
-    }
-
-    /* 参考画像と同じ文言・ボタン形状 */
-    @media (max-width:480px) {
-      body {
-        min-height:100svh;padding:30px 20px;
-        background:
-          radial-gradient(ellipse at 50% 36%,#71351f 0%,#3c211b 43%,transparent 76%),
-          linear-gradient(145deg,#171522 0%,#0c0b14 100%);
-      }
-      .wrap { width:100%;max-width:630px; }
-      .card {
-        padding:48px 38px 38px;border:2px solid #e6c65f;border-radius:43px;
-        background:linear-gradient(155deg,#211d35 0%,#100f1e 70%,#090914 100%);
-        box-shadow:0 0 40px #ed792b40,0 18px 55px #000b;
-      }
-      .eyebrow { margin:0 0 25px;color:#ffd64f;font-size:16px;letter-spacing:4px; }
-      h1 { margin:0;font-size:clamp(30px,7vw,42px);line-height:1.35;white-space:nowrap;letter-spacing:0; }
-      .sub { margin:18px 0 38px;color:#d4d0df;font-size:clamp(15px,3.8vw,20px);white-space:nowrap; }
-      .trial-orb {
-        width:clamp(220px,39vw,270px);height:clamp(220px,39vw,270px);
-        margin:0 auto 32px;border:4px solid #8e8a9a;border-radius:50%;
-        display:grid;place-items:center;
-        background:radial-gradient(circle at 50% 43%,#ffcf25 0%,#ff8a12 35%,#a6380b 63%,#211322 78%);
-        color:#fff;font-size:clamp(24px,5vw,34px);font-weight:900;
-        text-shadow:0 2px 5px #632000;
-        box-shadow:0 0 0 5px #ffb52b22,0 0 26px #ff9b25,0 0 62px #ff8b1c99,inset 0 0 25px #ffdd4d99;
-      }
-      .chance { margin:0 0 34px;color:#ddd5df;font-size:17px;white-space:nowrap; }
-      .instructions { margin:0 0 12px;text-align:left;color:#f5edf2;font-size:17px; }
-      input {
-        height:94px;border:3px solid #f0d45c;border-radius:20px;
-        background:#fff;color:#29232b;font-size:clamp(24px,5vw,32px);
-        box-shadow:none;
-      }
-      input::placeholder { color:#aaa8aa; }
-      button {
-        display:flex;width:100%;box-sizing:border-box;height:100px;min-height:100px;margin:24px auto 0;padding:0 10px;
-        align-items:center;justify-content:center;
-        border:0;border-radius:999px;
-        background:linear-gradient(100deg,#ffd52e 0%,#ffbd25 45%,#f36b18 100%);
-        color:#211322;font-family:inherit;font-size:clamp(17px,4.6vw,21px);
-        font-weight:950;letter-spacing:-.03em;white-space:nowrap;word-break:keep-all;
-        text-shadow:0 1px 0 #fff5;
-        box-shadow:0 9px 0 #8d3d16,0 15px 34px #ff7b2866;
-        animation:buttonGlow 1.8s ease-in-out infinite alternate;
-      }
-      button:active:not(:disabled) { transform:translateY(5px); }
-      .note {
-        margin:34px 0 0;color:#bdb7c8;font-size:14px;line-height:1.9;
-        text-align:center;
-      }
-      #result { margin-top:20px;border:1px solid #e6c65f;border-radius:18px;background:#100f1e; }
-      footer { display:none; }
-    }
-    @media (max-width:380px) {
-      .card { padding-left:24px;padding-right:24px; }
-      .eyebrow { font-size:13px;letter-spacing:3px; }
+      body { padding:30px 20px; }
+      .card { padding:28px 22px 25px; border-radius:25px; }
+      .eyebrow { margin:0 0 17px; font-size:16px; letter-spacing:4px; }
       h1 { font-size:clamp(25px,7vw,30px); }
-      .sub { font-size:13px; }
-      .chance { font-size:13px; }
-      button { font-size:clamp(18px,5vw,22px); }
-      .note { font-size:12px; }
+      .sub { margin:12px 0 22px; font-size:13px; line-height:1.6; }
+      .trial-orb {
+        width:136px; height:136px; margin:0 auto 17px;
+        border-width:2px; font-size:19px;
+        box-shadow:0 0 0 3px #ffb52b22,0 0 17px #ff9b25,0 0 36px #ff8b1c99,inset 0 0 15px #ffdd4d99;
+      }
+      .chance { margin:0 0 20px; font-size:12px; }
+      .instructions { margin:0 0 9px; font-size:13px; }
+      input { height:60px; padding:0 12px; border-width:2px; border-radius:12px; font-size:20px; }
+      button { min-height:56px; height:56px; margin:14px auto 0; padding:0 8px; font-size:17px; }
+      .note { margin:24px 0 0; font-size:11px; line-height:1.8; }
+      #result { margin-top:17px; padding:16px 12px; }
     }
+    @media (max-width:360px) {
+      .card { padding-left:17px; padding-right:17px; }
+      .eyebrow { font-size:13px; letter-spacing:3px; }
+      h1 { font-size:25px; }
+      .sub { font-size:12px; }
+      .chance { font-size:11px; }
+      button { font-size:15px; }
+    }
+    @media (prefers-reduced-motion:reduce) { button,.burst.on { animation:none; } }
   </style>
 </head>
 <body>
@@ -610,7 +124,7 @@
       <p class="chance">当選確率 15% ／ チャンスは1回だけ！</p>
       <p class="instructions">くじ券の番号</p>
       <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="番号を入力" aria-label="抽選番号">
-      <button id="draw" type="button">運命をつかめ</button>
+      <button id="draw" type="button">運命の抽選をする！</button>
       <div class="burst" id="burst" aria-hidden="true">★　★　★</div>
       <section id="result" aria-live="polite">
         <h2 id="resultTitle"></h2>
@@ -657,7 +171,7 @@
         alert(error.message);
         button.disabled = false;
         ticketNumber.disabled = false;
-        button.textContent = "運命をつかめ";
+        button.textContent = "運命の抽選をする！";
       } finally {
         burst.classList.remove("on");
       }
