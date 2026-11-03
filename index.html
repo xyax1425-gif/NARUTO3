@@ -353,6 +353,59 @@
       .note { font-size:12px;margin-top:30px; }
     }
     @media (prefers-reduced-motion:reduce) { button { animation:none; } }
+
+    /* 添付画像のレイアウトに合わせた最終調整 */
+    .card {
+      padding:48px 38px 40px;
+      border:2px solid #e6c65f;
+      border-radius:44px;
+      background:linear-gradient(155deg,#211d35 0%,#100f1e 70%,#090914 100%);
+      box-shadow:0 0 45px #ed792b35,0 18px 60px #000b;
+    }
+    .eyebrow { margin:0 0 24px;color:#ffd64f;font-size:16px;letter-spacing:.22em; }
+    h1 { font-size:clamp(30px,7vw,43px);line-height:1.35; }
+    .sub { margin:18px 0 38px;font-size:clamp(15px,3.8vw,20px); }
+    .trial-orb {
+      width:clamp(220px,40vw,270px);height:clamp(220px,40vw,270px);
+      margin:0 auto 32px;border:4px solid #8e8a9a;border-radius:50%;
+      display:grid;place-items:center;
+      background:radial-gradient(circle at 50% 43%,#ffcf25 0%,#ff8a12 35%,#a6380b 63%,#211322 78%);
+      color:#fff;font-size:clamp(24px,5vw,34px);font-weight:900;
+      text-shadow:0 2px 5px #632000;
+      box-shadow:0 0 0 5px #ffb52b22,0 0 26px #ff9b25,0 0 62px #ff8b1c99,inset 0 0 25px #ffdd4d99;
+    }
+    .chance { margin:0 0 34px;color:#ddd5df;font-size:17px; }
+    .instructions { margin:0 0 12px;text-align:left;color:#f5edf2;font-size:17px; }
+    input {
+      height:94px;border:3px solid #f0d45c;border-radius:20px;
+      background:#fff;color:#29232b;font-size:clamp(24px,5vw,32px);
+      box-shadow:none;
+    }
+    input::placeholder { color:#aaa8aa; }
+    button {
+      width:100%;height:auto;min-height:96px;margin:24px auto 0;padding:18px 12px;
+      border:0;border-radius:999px;
+      background:linear-gradient(100deg,#ffd52e 0%,#ffad24 48%,#f36b18 100%);
+      color:#241322;font-family:inherit;font-size:clamp(20px,4.8vw,29px);
+      font-weight:950;letter-spacing:0;white-space:nowrap;
+      text-shadow:0 1px 0 #fff5;
+      box-shadow:0 9px 0 #8d3d16,0 15px 34px #ff7b2866;
+      animation:buttonGlow 1.8s ease-in-out infinite alternate;
+    }
+    button:active:not(:disabled) { transform:translateY(5px);box-shadow:0 4px 0 #8d3d16,0 8px 20px #ff7b2844; }
+    .note { margin-top:34px;font-size:14px;line-height:1.9;color:#bdb7c8; }
+    #result { border:1px solid #e6c65f;border-radius:18px;background:#100f1e; }
+    footer { display:none; }
+    @media(max-width:480px) {
+      body { padding:22px 12px; }
+      .card { padding:48px 38px 40px; }
+      .eyebrow { font-size:13px; }
+      .sub { margin:18px 0 38px; }
+      .chance { font-size:14px; }
+      input { height:78px; }
+      button { min-height:82px;font-size:clamp(17px,4.8vw,24px); }
+      .note { font-size:12px; }
+    }
   </style>
 </head>
 <body>
@@ -365,7 +418,7 @@
       <p class="chance">当選確率 15% ／ チャンスは1回だけ！</p>
       <p class="instructions">くじ券の番号</p>
       <input id="ticketNumber" type="text" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="抽選番号を入力" aria-label="抽選番号">
-      <button id="draw" type="button">運命をつかめ！</button>
+      <button id="draw" type="button">運命の抽選をする！</button>
       <div class="burst" id="burst" aria-hidden="true">★　★　★</div>
       <section id="result" aria-live="polite">
         <h2 id="resultTitle"></h2>
@@ -412,7 +465,7 @@
         alert(error.message);
         button.disabled = false;
         ticketNumber.disabled = false;
-        button.textContent = "運命をつかめ！";
+        button.textContent = "運命の抽選をする！";
       } finally {
         burst.classList.remove("on");
       }
